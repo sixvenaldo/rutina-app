@@ -91,6 +91,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+      - run: npm ci
       - run: node build.js
       - uses: actions/upload-pages-artifact@v3
         with:
