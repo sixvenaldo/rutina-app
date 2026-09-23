@@ -119,7 +119,7 @@
 
   /* Navegación */
   .nav{position:fixed;left:0;right:0;bottom:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-  .nav-in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 72px 1fr;align-items:center;padding-inline:8px}
+  .nav-in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 68px 1fr 1fr;align-items:center;padding-inline:4px}
   .tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 12px;font-size:11px;color:var(--muted);font-weight:500}
   .tab svg{width:22px;height:22px}
   .tab[aria-current="page"]{color:var(--text)}
@@ -153,6 +153,68 @@
 
   .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:500;z-index:20;animation:up .2s;max-width:calc(100% - 32px)}
 
+  /* Fotos */
+  .photo-due{display:flex;align-items:center;gap:14px;padding:14px;border-radius:var(--radius);background:color-mix(in srgb,var(--accent) 14%,var(--surface))}
+  .photo-due .ic{width:44px;height:44px;border-radius:12px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
+  .photo-due .tt b{font-weight:600}
+  .freq{display:flex;flex-wrap:wrap;gap:6px}
+  .pill{padding:8px 12px;border-radius:999px;background:var(--surface2);font-size:14px;font-weight:500;color:var(--muted)}
+  .pill[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .compare figure{margin:0;display:flex;flex-direction:column;gap:6px}
+  .compare img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;background:var(--surface2);display:block}
+  .compare figcaption{font-size:12px;color:var(--muted)}
+  .compare figcaption b{color:var(--text);font-weight:600;display:block;font-size:13px}
+  .month{display:flex;flex-direction:column;gap:10px}
+  .month h2{font-size:16px}
+  .month h2::first-letter{text-transform:uppercase}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .thumb{position:relative;aspect-ratio:3/4;border-radius:10px;overflow:hidden;background:var(--surface2);max-width:100%}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb span{position:absolute;left:6px;bottom:6px;font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:rgba(0,0,0,.55);color:#fff;font-variant-numeric:tabular-nums}
+  .ppreview{width:100%;max-height:46vh;object-fit:contain;border-radius:14px;background:var(--surface2);display:block}
+  .pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .pick label{display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 8px;border-radius:14px;background:var(--surface2);font-weight:600;font-size:15px;cursor:pointer;text-align:center}
+  .pick label svg{width:28px;height:28px;color:var(--accent)}
+  .pick input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+
+  .viewer{position:fixed;inset:0;z-index:15;background:#000;display:flex;flex-direction:column;animation:fade .2s;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color:#f2f2f4}
+  .viewer-top{display:flex;align-items:center;gap:8px;padding:8px 8px 8px 16px}
+  .viewer-top .tt{flex:1}
+  .viewer-top .meta{color:#a0a0a8}
+  .vbtn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#f2f2f4}
+  .vbtn:active{background:rgba(255,255,255,.1)}
+  .vbtn.armed{background:var(--miss)}
+  .viewer-img{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;position:relative}
+  .viewer-img img{max-width:100%;max-height:100%;object-fit:contain}
+  .viewer-img .nav-l,.viewer-img .nav-r{position:absolute;top:0;bottom:0;width:30%}
+  .viewer-img .nav-l{left:0}.viewer-img .nav-r{right:0}
+  .viewer-note{padding:12px 16px 16px;font-size:15px;white-space:pre-line;color:#d6d6dc;max-height:22vh;overflow:auto}
+
+  .months{display:flex;flex-direction:column;gap:20px}
+  .stack{display:flex;flex-direction:column;gap:14px}
+
+  /* Bienvenida */
+  .onb{position:fixed;inset:0;z-index:30;background:var(--bg);overflow:auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .onb-in{max-width:520px;margin:0 auto;min-height:100%;box-sizing:border-box;padding-inline:20px;padding-block:24px;display:flex;flex-direction:column;gap:22px}
+  .steps{display:flex;gap:6px}
+  .steps i{flex:1;height:4px;border-radius:2px;background:var(--surface2);transition:background .3s}
+  .steps i.on{background:var(--accent)}
+  .onb h1{font-size:34px}
+  .onb .lead{color:var(--muted);margin:0;font-size:17px;max-width:40ch}
+  .onb-logo{width:88px;height:88px;border-radius:24px;display:block}
+  .onb-step{display:flex;flex-direction:column;gap:18px;animation:up .3s cubic-bezier(.2,.8,.2,1)}
+  .sugg{display:flex;flex-wrap:wrap;gap:8px}
+  .sugg button{padding:10px 14px;border-radius:999px;border:1px solid var(--line);font-size:15px;font-weight:500;color:var(--text)}
+  .sugg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  .choice{display:flex;flex-direction:column;gap:8px}
+  .choice button{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 16px;border-radius:14px;background:var(--surface);text-align:left;font-weight:500;border:2px solid transparent}
+  .choice button small{color:var(--muted);font-weight:400;font-size:13px}
+  .choice button[aria-pressed="true"]{border-color:var(--accent)}
+  .onb-foot{margin-top:auto;display:flex;gap:8px;padding-top:8px}
+  .onb-foot .btn{padding:15px 18px;font-size:16px}
+  .onb-foot .primary{flex:1}
+
   @keyframes up{from{transform:translateY(24px);opacity:0}}
   @keyframes fade{from{opacity:0}}
   .toast{animation:none}
@@ -178,6 +240,11 @@
       </div>
       <div class="prog-label" id="t-label"></div>
     </section>
+    <div class="photo-due" id="photo-due" hidden>
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+      <div class="tt"><b>Toca foto de progreso</b><span class="meta" id="photo-due-sub"></span></div>
+      <button class="btn primary" id="photo-due-btn">Subir</button>
+    </div>
     <div class="banner" id="sample-banner" hidden>
       <span>Estas tareas e historial son de ejemplo.</span>
       <button class="link" id="clear-sample">Borrar ejemplos</button>
@@ -219,12 +286,34 @@
     </div>
   </section>
 
+  <!-- FOTOS -->
+  <section class="view" id="v-photos" hidden>
+    <header>
+      <div class="eyebrow">Progreso</div>
+      <h1>Tus fotos</h1>
+    </header>
+    <div class="card">
+      <div class="card-head"><h2>Recordarme tomar foto</h2><span class="meta" id="p-next"></span></div>
+      <div class="freq" id="p-freq"></div>
+    </div>
+    <div class="card" id="p-compare-card" hidden>
+      <div class="card-head"><h2>Antes y ahora</h2><span class="meta" id="p-span"></span></div>
+      <div class="compare" id="p-compare"></div>
+    </div>
+    <div id="p-months" class="months"></div>
+    <p class="empty" id="p-empty" hidden>Aún no tienes fotos.<br>Toca <b>+</b> para subir la primera y ver cómo cambias con el tiempo.</p>
+  </section>
+
   <!-- AJUSTES -->
   <section class="view" id="v-set" hidden>
     <header>
       <div class="eyebrow">Ajustes</div>
       <h1>Tu estilo</h1>
     </header>
+    <div class="card">
+      <h2>Tu nombre</h2>
+      <input class="input" id="set-name" maxlength="30" placeholder="¿Cómo te llamas?" autocomplete="given-name">
+    </div>
     <div class="card">
       <h2>Fondo</h2>
       <div class="opts" id="bg-opts"></div>
@@ -235,7 +324,7 @@
     </div>
     <div class="card">
       <h2>Copia de seguridad</h2>
-      <p class="note">Tus datos se guardan solo en este teléfono. Exporta un archivo de vez en cuando para no perder tu historial.</p>
+      <p class="note">Tus tareas y fotos se guardan solo en este teléfono. Exporta un archivo de vez en cuando (incluye las fotos) para no perder tu historial.</p>
       <div class="btns">
         <button class="btn" id="export">Exportar</button>
         <button class="btn" id="import-btn">Importar</button>
@@ -255,7 +344,9 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>Hoy</button>
     <button class="tab" data-view="v-hist">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="4" height="4" rx="1"/><rect x="10" y="4" width="4" height="4" rx="1"/><rect x="16" y="4" width="4" height="4" rx="1"/><rect x="4" y="10" width="4" height="4" rx="1"/><rect x="10" y="10" width="4" height="4" rx="1"/><rect x="4" y="16" width="4" height="4" rx="1"/></svg>Historial</button>
-    <button class="fab" id="add" aria-label="Nueva tarea"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="fab" id="add" aria-label="Agregar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="tab" data-view="v-photos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Fotos</button>
     <button class="tab" data-view="v-set">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg>Ajustes</button>
   </div>
@@ -306,6 +397,64 @@
   </form>
 </div>
 
+<!-- Nueva foto -->
+<div class="scrim" id="pscrim" hidden>
+  <form class="sheet" id="psheet" autocomplete="off">
+    <div class="grab"></div>
+    <h2>Foto de progreso</h2>
+    <div class="pick" id="p-pick">
+      <label for="p-cam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Tomar foto
+        <input type="file" id="p-cam" accept="image/*" capture="user"></label>
+      <label for="p-gal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 9"/></svg>Elegir de galería
+        <input type="file" id="p-gal" accept="image/*"></label>
+    </div>
+    <div id="p-form" hidden>
+      <div class="stack">
+        <img class="ppreview" id="p-prev" alt="Vista previa de la foto">
+        <div class="field">
+          <label for="p-date">Fecha</label>
+          <input class="input" type="date" id="p-date">
+        </div>
+        <div class="field">
+          <label for="p-note">Nota <span style="font-weight:400">(opcional)</span></label>
+          <textarea class="input note-in" id="p-note" rows="2" maxlength="300" placeholder="Peso, medidas, cómo te sientes…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-actions">
+      <button type="button" class="btn" id="p-cancel">Cancelar</button>
+      <button type="submit" class="btn primary" id="p-save" hidden>Guardar foto</button>
+    </div>
+  </form>
+</div>
+
+<!-- Visor de fotos -->
+<div class="viewer" id="viewer" hidden role="dialog" aria-label="Foto de progreso">
+  <div class="viewer-top">
+    <div class="tt"><b id="v-date"></b><span class="meta" id="v-count"></span></div>
+    <button class="vbtn" id="v-del" aria-label="Eliminar foto"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg></button>
+    <button class="vbtn" id="v-close" aria-label="Cerrar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="viewer-img">
+    <img id="v-img" alt="">
+    <button class="nav-l" id="v-prev" aria-label="Foto anterior"></button>
+    <button class="nav-r" id="v-next" aria-label="Foto siguiente"></button>
+  </div>
+  <div class="viewer-note" id="v-note"></div>
+</div>
+
+<!-- Bienvenida -->
+<div class="onb" id="onb" hidden>
+  <div class="onb-in">
+    <div class="steps" id="onb-steps"><i></i><i></i><i></i><i></i></div>
+    <div id="onb-body"></div>
+    <div class="onb-foot">
+      <button class="btn" id="onb-back">Atrás</button>
+      <button class="btn primary" id="onb-next">Siguiente</button>
+    </div>
+  </div>
+</div>
+
 <script>
 (() => {
   const $ = s => document.querySelector(s);
@@ -341,24 +490,6 @@
 
   // ---------- estado ----------
   const uid = () => Math.random().toString(36).slice(2,9);
-  function seed(){
-    const t = today(), start = key(addDays(t,-45));
-    const tasks = [
-      {id:uid(), title:'Tomar 2 litros de agua', kind:'daily', days:[], date:null, created:start, archived:null},
-      {id:uid(), title:'Leer 20 minutos', kind:'daily', days:[], date:null, created:start, archived:null},
-      {id:uid(), title:'Ir al gimnasio', note:'Pierna los lunes, espalda los miércoles y pecho los viernes. 10 min de cardio al final.', kind:'weekly', days:[1,3,5], date:null, created:start, archived:null},
-      {id:uid(), title:'Pagar el recibo de luz', kind:'once', days:[], date:key(addDays(t,2)), created:key(t), archived:null}
-    ];
-    const done = {}; let r = 7;
-    const rnd = () => (r = (r*9301+49297)%233280)/233280;
-    for (let i=45;i>=1;i--){
-      const k = key(addDays(t,-i)), ids = [];
-      tasks.forEach((tk,j) => { if (isDue(tk,k) && rnd() < [0.85,0.65,0.75,1][j]) ids.push(tk.id); });
-      if (ids.length) done[k] = ids;
-    }
-    done[key(t)] = [tasks[0].id];
-    return {tasks, done, theme:{bg:'negro', accent:'#f5b942'}, sample:true};
-  }
   function load(){ try { const r = localStorage.getItem(STORE); if (r) return JSON.parse(r); } catch(e){} return null; }
   function save(){ try { localStorage.setItem(STORE, JSON.stringify(S)); } catch(e){} }
 
@@ -373,8 +504,75 @@
   const dueOn = k => S.tasks.filter(t => isDue(t,k));
   function dayStats(k){ const due = dueOn(k); const n = due.filter(t => isDone(t.id,k)).length; return {due:due.length, done:n, r: due.length ? n/due.length : null}; }
 
-  let S = load() || seed();
+  let S = load() || {tasks:[], done:{}, theme:{bg:'negro', accent:'#f5b942'}, sample:false, onboarded:false};
   if (!S.theme) S.theme = {bg:'negro', accent:'#f5b942'};
+  if (!S.photoFreq) S.photoFreq = 'weekly';
+
+  // ---------- fotos (IndexedDB: las imágenes no caben en localStorage) ----------
+  const PDB = (() => {
+    let dbp;
+    const open = () => dbp || (dbp = new Promise((res, rej) => {
+      const r = indexedDB.open('rutina-fotos', 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('photos', {keyPath:'id'});
+      r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+    }));
+    const tx = async (mode, fn) => {
+      const db = await open();
+      return new Promise((res, rej) => {
+        const t = db.transaction('photos', mode), req = fn(t.objectStore('photos'));
+        t.oncomplete = () => res(req && req.result); t.onerror = () => rej(t.error);
+      });
+    };
+    return {
+      all: () => tx('readonly', st => st.getAll()),
+      put: p => tx('readwrite', st => st.put(p)),
+      del: id => tx('readwrite', st => st.delete(id)),
+      clear: () => tx('readwrite', st => st.clear())
+    };
+  })();
+  let photos = [];
+  const urls = new Map();
+  const urlOf = p => { if (!urls.has(p.id)) urls.set(p.id, URL.createObjectURL(p.blob)); return urls.get(p.id); };
+  async function loadPhotos(){
+    try { photos = (await PDB.all()) || []; } catch(e){ photos = []; }
+    photos.sort((a,b) => a.date < b.date ? -1 : a.date > b.date ? 1 : a.ts - b.ts);
+  }
+  const PFREQ = [['daily','Cada día',1],['weekly','Cada semana',7],['biweekly','Cada 2 semanas',14],['monthly','Cada mes',30],['never','No recordarme',0]];
+  function photoDue(){
+    const f = PFREQ.find(x => x[0] === S.photoFreq), days = f ? f[2] : 0;
+    if (!days) return null;
+    const last = photos.length ? photos[photos.length-1].date : null;
+    if (!last) return {due:true, last:null, next:todayKey()};
+    const next = key(addDays(parse(last), days));
+    return {due: next <= todayKey(), last, next};
+  }
+  // Reduce la foto a ~1400px en JPEG para no llenar el teléfono
+  async function compress(file){
+    let src;
+    try { src = await createImageBitmap(file, {imageOrientation:'from-image'}); }
+    catch(e){ src = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = URL.createObjectURL(file); }); }
+    const k = Math.min(1, 1400 / Math.max(src.width, src.height));
+    const c = document.createElement('canvas');
+    c.width = Math.round(src.width*k); c.height = Math.round(src.height*k);
+    c.getContext('2d').drawImage(src, 0, 0, c.width, c.height);
+    return new Promise(res => c.toBlob(b => res(b || file), 'image/jpeg', .85));
+  }
+  const blobToData = b => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(b); });
+  function dataToBlob(d){
+    const [head, b64] = d.split(','), bin = atob(b64), u = new Uint8Array(bin.length);
+    for (let i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i);
+    return new Blob([u], {type: (head.match(/data:([^;]+)/)||[])[1] || 'image/jpeg'});
+  }
+
+  // ---------- capas (hojas, visor): el botón Atrás de Android las cierra ----------
+  const ovStack = [];
+  function openOverlay(close){ ovStack.push(close); try { history.pushState({ov:ovStack.length}, ''); } catch(e){} }
+  function closeOverlay(){
+    const top = ovStack[ovStack.length-1]; if (!top) return;
+    try { history.back(); } catch(e){}
+    setTimeout(() => { if (ovStack[ovStack.length-1] === top) { ovStack.pop(); top(); } }, 350);
+  }
+  window.addEventListener('popstate', () => { const c = ovStack.pop(); if (c) c(); });
   let sel = todayKey();
   let weekStart = monday(today());
   let heatSel = null;
@@ -424,7 +622,11 @@
 
   function renderToday(){
     const d = parse(sel), tk = todayKey(), future = sel > tk;
-    $('#t-eyebrow').textContent = relLabel(sel);
+    const h = new Date().getHours(), hi = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
+    $('#t-eyebrow').textContent = sel === tk && S.name ? hi + ', ' + S.name : relLabel(sel);
+    const pd = photoDue();
+    $('#photo-due').hidden = !(pd && pd.due && sel === tk);
+    if (pd) $('#photo-due-sub').textContent = pd.last ? 'Tu última foto fue ' + relLabel(pd.last).toLowerCase() : 'Sube la primera para comparar después';
     $('#t-date').textContent = longDate(d);
 
     const wk = $('#week'); wk.innerHTML = '';
@@ -470,7 +672,7 @@
   }
   $('#wk-prev').onclick = () => { weekStart = addDays(weekStart,-7); sel = key(weekStart); renderToday(); };
   $('#wk-next').onclick = () => { weekStart = addDays(weekStart,7); sel = key(weekStart); renderToday(); };
-  $('#clear-sample').onclick = () => { S = {tasks:[], done:{}, theme:S.theme, sample:false}; save(); render(); toast('Ejemplos borrados. ¡Agrega tu primera tarea!'); };
+  $('#clear-sample').onclick = () => { S = {...S, tasks:[], done:{}, sample:false}; save(); render(); toast('Ejemplos borrados. ¡Agrega tu primera tarea!'); };
 
   // ---------- HISTORIAL ----------
   function renderHist(){
@@ -545,6 +747,116 @@
     });
   }
 
+  // ---------- FOTOS ----------
+  const shortDate = k => parse(k).toLocaleDateString('es', {day:'numeric', month:'short', year:'numeric'});
+  function renderPhotos(){
+    const pf = $('#p-freq'); pf.innerHTML = '';
+    PFREQ.forEach(([id,label]) => {
+      const b = document.createElement('button'); b.className = 'pill'; b.textContent = label;
+      b.setAttribute('aria-pressed', S.photoFreq === id);
+      b.onclick = () => { S.photoFreq = id; save(); renderPhotos(); };
+      pf.appendChild(b);
+    });
+    const pd = photoDue();
+    $('#p-next').textContent = !pd ? '' : pd.due ? 'Toca hoy' : 'Próxima: ' + parse(pd.next).toLocaleDateString('es', {day:'numeric', month:'short'});
+    $('#p-empty').hidden = photos.length > 0;
+
+    $('#p-compare-card').hidden = photos.length < 2;
+    if (photos.length >= 2) {
+      const a = photos[0], z = photos[photos.length-1], days = Math.round((parse(z.date) - parse(a.date))/864e5);
+      $('#p-span').textContent = days ? days + (days === 1 ? ' día' : ' días') + ' de diferencia' : 'mismo día';
+      $('#p-compare').innerHTML = [['Antes',a],['Ahora',z]].map(([l,p]) =>
+        `<figure data-id="${p.id}"><img src="${urlOf(p)}" alt="Foto ${l.toLowerCase()}"><figcaption><b>${l}</b>${shortDate(p.date)}</figcaption></figure>`).join('');
+      $('#p-compare').querySelectorAll('figure').forEach(f => f.onclick = () => openViewer(f.dataset.id));
+    }
+
+    const box = $('#p-months'); box.innerHTML = '';
+    const groups = {};
+    [...photos].reverse().forEach(p => (groups[p.date.slice(0,7)] = groups[p.date.slice(0,7)] || []).push(p));
+    Object.entries(groups).forEach(([m, list]) => {
+      const sec = document.createElement('section'); sec.className = 'month';
+      sec.innerHTML = `<h2>${parse(m+'-01').toLocaleDateString('es', {month:'long', year:'numeric'})}</h2><div class="pgrid"></div>`;
+      const g = sec.querySelector('.pgrid');
+      list.forEach(p => {
+        const d = parse(p.date), b = document.createElement('button');
+        b.className = 'thumb'; b.setAttribute('aria-label', 'Foto del ' + longDate(d));
+        b.innerHTML = `<img src="${urlOf(p)}" alt="" loading="lazy"><span>${d.getDate()} ${MONTHS[d.getMonth()]}</span>`;
+        b.onclick = () => openViewer(p.id);
+        g.appendChild(b);
+      });
+      box.appendChild(sec);
+    });
+  }
+
+  // Nueva foto
+  let pending = null, pendingUrl = null;
+  function openPhotoSheet(){
+    pending = null;
+    $('#p-pick').hidden = false; $('#p-form').hidden = true; $('#p-save').hidden = true;
+    $('#p-note').value = ''; $('#p-date').value = todayKey(); $('#p-date').max = todayKey();
+    $('#pscrim').hidden = false;
+    openOverlay(() => {
+      $('#pscrim').hidden = true;
+      if (pendingUrl) URL.revokeObjectURL(pendingUrl);
+      pending = pendingUrl = null; $('#p-cam').value = ''; $('#p-gal').value = '';
+    });
+  }
+  async function onPick(e){
+    const f = e.target.files[0]; if (!f) return;
+    try { pending = await compress(f); } catch(err){ return toast('No se pudo leer esa imagen. Prueba con otra.'); }
+    pendingUrl = URL.createObjectURL(pending);
+    $('#p-prev').src = pendingUrl;
+    $('#p-pick').hidden = true; $('#p-form').hidden = false; $('#p-save').hidden = false;
+  }
+  $('#p-cam').onchange = onPick;
+  $('#p-gal').onchange = onPick;
+  $('#p-cancel').onclick = closeOverlay;
+  $('#pscrim').onclick = e => { if (e.target.id === 'pscrim') closeOverlay(); };
+  $('#photo-due-btn').onclick = openPhotoSheet;
+  $('#psheet').onsubmit = async e => {
+    e.preventDefault();
+    if (!pending) return;
+    const p = {id:uid(), date: $('#p-date').value || todayKey(), ts: Date.now(), note: $('#p-note').value.trim(), blob: pending};
+    try { await PDB.put(p); } catch(err){ return toast('No se pudo guardar la foto. Revisa el espacio del teléfono.'); }
+    await loadPhotos(); closeOverlay(); render(); toast('Foto guardada');
+  };
+
+  // Visor
+  let vIdx = 0;
+  function openViewer(id){
+    vIdx = photos.findIndex(p => p.id === id); if (vIdx < 0) return;
+    paintViewer(); $('#viewer').hidden = false;
+    openOverlay(() => { $('#viewer').hidden = true; });
+  }
+  function paintViewer(){
+    const p = photos[vIdx];
+    $('#v-img').src = urlOf(p);
+    $('#v-date').textContent = longDate(parse(p.date));
+    $('#v-count').textContent = (vIdx+1) + ' de ' + photos.length;
+    $('#v-note').textContent = p.note || ''; $('#v-note').hidden = !p.note;
+    $('#v-del').classList.remove('armed');
+  }
+  $('#v-prev').onclick = () => { if (vIdx > 0) { vIdx--; paintViewer(); } };
+  $('#v-next').onclick = () => { if (vIdx < photos.length-1) { vIdx++; paintViewer(); } };
+  $('#v-close').onclick = closeOverlay;
+  $('#v-del').onclick = async e => {
+    const b = e.currentTarget;
+    if (!b.classList.contains('armed')) { b.classList.add('armed'); toast('Toca otra vez para eliminar la foto'); return; }
+    const p = photos[vIdx];
+    try { await PDB.del(p.id); } catch(err){ return toast('No se pudo eliminar'); }
+    if (urls.has(p.id)) { URL.revokeObjectURL(urls.get(p.id)); urls.delete(p.id); }
+    await loadPhotos();
+    if (!photos.length) closeOverlay(); else { vIdx = Math.min(vIdx, photos.length-1); paintViewer(); }
+    render(); toast('Foto eliminada');
+  };
+  let touchX = null;
+  $('#viewer').addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, {passive:true});
+  $('#viewer').addEventListener('touchend', e => {
+    if (touchX == null) return;
+    const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+    if (Math.abs(dx) > 50) (dx < 0 ? $('#v-next') : $('#v-prev')).click();
+  });
+
   // ---------- AJUSTES ----------
   function renderSet(){
     const bo = $('#bg-opts'); bo.innerHTML = '';
@@ -570,9 +882,13 @@
     cu.querySelector('input').onchange = () => renderSet();
     ao.appendChild(cu);
     const w = $('#wipe'); w.classList.remove('armed'); w.textContent = 'Borrar todo';
+    const nmI = $('#set-name'); if (document.activeElement !== nmI) nmI.value = S.name || '';
   }
+  $('#set-name').oninput = e => { S.name = e.target.value.trim(); save(); };
   $('#export').onclick = async () => {
-    const name = 'rutina-respaldo-'+todayKey()+'.json', json = JSON.stringify(S,null,1);
+    let ph = [];
+    try { ph = await Promise.all(photos.map(async p => ({id:p.id, date:p.date, ts:p.ts, note:p.note, data: await blobToData(p.blob)}))); } catch(e){}
+    const name = 'rutina-respaldo-'+todayKey()+'.json', json = JSON.stringify({...S, photos: ph});
     const fsP = plugin('Filesystem'), shP = plugin('Share');
     if (fsP && shP) {
       try {
@@ -592,13 +908,20 @@
   $('#import').onchange = e => {
     const f = e.target.files[0]; if (!f) return;
     const r = new FileReader();
-    r.onload = () => {
-      try {
-        const d = JSON.parse(r.result);
-        if (!Array.isArray(d.tasks) || typeof d.done !== 'object') throw 0;
-        S = {tasks:d.tasks, done:d.done, theme:d.theme || S.theme, sample:false};
-        save(); applyTheme(); render(); toast('Respaldo importado');
-      } catch(err){ toast('Ese archivo no es un respaldo de Rutina'); }
+    r.onload = async () => {
+      let d;
+      try { d = JSON.parse(r.result); if (!Array.isArray(d.tasks) || typeof d.done !== 'object') throw 0; }
+      catch(err){ e.target.value = ''; return toast('Ese archivo no es un respaldo de Rutina'); }
+      S = {tasks:d.tasks, done:d.done, theme:d.theme || S.theme, sample:false, onboarded:true,
+           name: d.name || S.name, photoFreq: d.photoFreq || S.photoFreq};
+      save();
+      if (Array.isArray(d.photos) && d.photos.length) {
+        try {
+          await PDB.clear(); urls.forEach(u => URL.revokeObjectURL(u)); urls.clear();
+          for (const p of d.photos) await PDB.put({id:p.id, date:p.date, ts:p.ts, note:p.note || '', blob: dataToBlob(p.data)});
+        } catch(err){ toast('Las tareas se importaron, pero algunas fotos no'); }
+      }
+      await loadPhotos(); applyTheme(); render(); toast('Respaldo importado');
       e.target.value = '';
     };
     r.readAsText(f);
@@ -606,7 +929,9 @@
   $('#wipe').onclick = e => {
     const b = e.currentTarget;
     if (!b.classList.contains('armed')) { b.classList.add('armed'); b.textContent = 'Toca otra vez para confirmar'; return; }
-    S = {tasks:[], done:{}, theme:S.theme, sample:false}; save(); render(); toast('Todo borrado');
+    S = {tasks:[], done:{}, theme:S.theme, sample:false, onboarded:true, name:S.name, photoFreq:S.photoFreq}; save();
+    PDB.clear().catch(() => {}); urls.forEach(u => URL.revokeObjectURL(u)); urls.clear(); photos = [];
+    render(); toast('Todo borrado');
   };
 
   // ---------- HOJA DE TAREA ----------
@@ -676,9 +1001,10 @@
     setKind(t ? t.kind : 'daily'); renderChips();
     const del = $('#f-del'); del.hidden = !t; del.classList.remove('armed'); del.textContent = 'Eliminar';
     $('#scrim').hidden = false;
+    openOverlay(() => { $('#scrim').hidden = true; editing = null; });
   }
-  const closeSheet = () => { $('#scrim').hidden = true; editing = null; };
-  $('#add').onclick = () => openSheet(null);
+  const closeSheet = closeOverlay;
+  $('#add').onclick = () => current === 'v-photos' ? openPhotoSheet() : openSheet(null);
   $('#f-cancel').onclick = closeSheet;
   $('#scrim').onclick = e => { if (e.target.id === 'scrim') closeSheet(); };
   $('#sheet').onsubmit = e => {
@@ -715,6 +1041,102 @@
     save(); closeSheet(); render(); toast(hasHistory && t.kind !== 'once' ? 'Tarea eliminada (su historial se conserva)' : 'Tarea eliminada');
   };
 
+  // ---------- BIENVENIDA ----------
+  const LOGO = '<svg class="onb-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" aria-hidden="true"> <defs> <radialGradient id="bg" cx=".5" cy=".38" r=".75"> <stop offset="0" stop-color="#1d170c"/><stop offset=".55" stop-color="#0b0a08"/><stop offset="1" stop-color="#050506"/> </radialGradient> <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"> <stop offset="0" stop-color="#ffdc8f"/><stop offset=".5" stop-color="#f5b942"/><stop offset="1" stop-color="#e98a2c"/> </linearGradient> <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1"> <stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/> </linearGradient> <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="46"/></filter> </defs> <rect width="1024" height="1024" fill="url(#bg)"/> <g transform="translate(512 512) scale(1) translate(-512 -512)"> <rect x="374" y="230" width="420" height="420" rx="112" fill="#f5b942" opacity="0.16"/> <rect x="302" y="302" width="420" height="420" rx="112" fill="#f5b942" opacity="0.4"/> <rect x="240" y="408" width="400" height="400" rx="112" fill="#f29a2e" opacity=".55" filter="url(#glow)"/> <rect x="230" y="374" width="420" height="420" rx="112" fill="url(#gold)"/> <rect x="230" y="374" width="420" height="420" rx="112" fill="url(#shine)"/> <path d="M335 592.4 L410.6 668 L553.4000000000001 508.4" fill="none" stroke="#1a1204" stroke-width="60" stroke-linecap="round" stroke-linejoin="round"/></g> </svg>';
+  const SUGG = ['Tomar 2 litros de agua','Hacer ejercicio','Leer 20 minutos','Meditar 10 minutos','Caminar 30 minutos','Dormir 8 horas','Tender la cama','Comer fruta y verdura','Estudiar','Estirar 10 minutos','Escribir en mi diario','Nada de redes antes de dormir'];
+  let ob = null;
+  function startOnboarding(){
+    ob = {step:0, name:S.name || '', picked:new Set(), custom:'', kind:'daily', days:[1,2,3,4,5], pfreq:S.photoFreq || 'weekly'};
+    $('#onb').hidden = false; paintOnb();
+  }
+  const obItems = () => [...[...ob.picked].map(t => ({title:t, note:''})), ...parseList(ob.custom)]
+    .filter((x,i,a) => a.findIndex(y => y.title.toLowerCase() === x.title.toLowerCase()) === i);
+  function paintOnb(){
+    const st = ob.step, body = $('#onb-body');
+    document.querySelectorAll('#onb-steps i').forEach((i,n) => i.classList.toggle('on', n <= st));
+    $('#onb-back').style.visibility = st ? 'visible' : 'hidden';
+    $('#onb-next').textContent = st === 3 ? 'Empezar' : 'Siguiente';
+    const nm = esc(ob.name.trim());
+    if (st === 0) {
+      body.innerHTML = `<div class="onb-step">${LOGO}
+        <h1>Bienvenido a Rutina</h1>
+        <p class="lead">Arma tus hábitos, márcalos cada día y mira cómo avanzas con el tiempo.</p>
+        <div class="field"><label for="onb-name">¿Cómo te llamas?</label>
+        <input class="input" id="onb-name" maxlength="30" placeholder="Tu nombre" autocomplete="given-name"></div></div>`;
+      const i = $('#onb-name'); i.value = ob.name;
+      i.oninput = () => ob.name = i.value;
+      i.onkeydown = e => { if (e.key === 'Enter') onbNext(); };
+    } else if (st === 1) {
+      body.innerHTML = `<div class="onb-step">
+        <h1>${nm ? nm + ', ¿qué' : '¿Qué'} quieres hacer cada día?</h1>
+        <p class="lead">Toca las que te interesen o escribe las tuyas. Podrás cambiarlas cuando quieras.</p>
+        <div class="sugg" id="onb-sugg"></div>
+        <div class="field"><label for="onb-custom">Tus propias tareas, una por línea</label>
+        <textarea class="input" id="onb-custom" rows="4" placeholder="Practicar guitarra&#10;Inglés: 15 minutos con la app"></textarea>
+        <span class="meta" id="onb-count"></span></div></div>`;
+      const count = () => { const n = obItems().length; $('#onb-count').textContent = n ? n + (n === 1 ? ' tarea elegida' : ' tareas elegidas') : 'Usa dos puntos para añadir una descripción.'; };
+      const sg = $('#onb-sugg');
+      SUGG.forEach(t => {
+        const b = document.createElement('button'); b.textContent = t; b.setAttribute('aria-pressed', ob.picked.has(t));
+        b.onclick = () => { ob.picked.has(t) ? ob.picked.delete(t) : ob.picked.add(t); b.setAttribute('aria-pressed', ob.picked.has(t)); count(); };
+        sg.appendChild(b);
+      });
+      const ta = $('#onb-custom'); ta.value = ob.custom; ta.oninput = () => { ob.custom = ta.value; count(); };
+      count();
+    } else if (st === 2) {
+      const n = obItems().length;
+      body.innerHTML = `<div class="onb-step">
+        <h1>¿Con qué frecuencia?</h1>
+        <p class="lead">${n ? 'Se aplica a tus ' + n + (n === 1 ? ' tarea' : ' tareas') + '. Luego puedes ajustar cada una por separado.' : 'No elegiste tareas; podrás agregarlas después con el botón +.'}</p>
+        <div class="choice" id="onb-kind">
+          <button data-k="daily">Todos los días <small>Lunes a domingo</small></button>
+          <button data-k="weekly">Solo algunos días <small>Tú eliges cuáles</small></button>
+        </div>
+        <div class="chips" id="onb-days"></div></div>`;
+      const paint = () => {
+        document.querySelectorAll('#onb-kind button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === ob.kind));
+        const c = $('#onb-days'); c.hidden = ob.kind !== 'weekly'; c.innerHTML = '';
+        DOW_ORDER.forEach(d => {
+          const b = document.createElement('button'); b.textContent = DOW_SHORT[d]; b.setAttribute('aria-label', DOW_NAME[d]);
+          b.setAttribute('aria-pressed', ob.days.includes(d));
+          b.onclick = () => { ob.days = ob.days.includes(d) ? ob.days.filter(x => x !== d) : [...ob.days, d]; paint(); };
+          c.appendChild(b);
+        });
+      };
+      document.querySelectorAll('#onb-kind button').forEach(b => b.onclick = () => { ob.kind = b.dataset.k; paint(); });
+      paint();
+    } else {
+      body.innerHTML = `<div class="onb-step">
+        <h1>Fotos de progreso</h1>
+        <p class="lead">Una foto cada cierto tiempo te deja ver cuánto has cambiado. ¿Cada cuánto te la recuerdo?</p>
+        <div class="choice" id="onb-pf"></div></div>`;
+      const hint = {daily:'Para cambios rápidos', weekly:'Lo más común', biweekly:'Menos seguido', monthly:'Para cambios a largo plazo', never:'Puedes activarlo después en Fotos'};
+      const c = $('#onb-pf');
+      PFREQ.forEach(([id,label]) => {
+        const b = document.createElement('button');
+        b.innerHTML = label + ' <small>' + hint[id] + '</small>';
+        b.setAttribute('aria-pressed', ob.pfreq === id);
+        b.onclick = () => { ob.pfreq = id; c.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); };
+        c.appendChild(b);
+      });
+    }
+    $('#onb').scrollTop = 0;
+  }
+  function onbNext(){
+    if (ob.step === 0 && !ob.name.trim()) { toast('Escribe tu nombre para continuar'); $('#onb-name').focus(); return; }
+    if (ob.step === 2 && ob.kind === 'weekly' && !ob.days.length) return toast('Elige al menos un día');
+    if (ob.step < 3) { ob.step++; paintOnb(); return; }
+    if (S.sample) { S.tasks = []; S.done = {}; S.sample = false; }
+    const tk = todayKey(), items = obItems();
+    items.forEach(it => S.tasks.push({id:uid(), title:it.title, note:it.note, kind:ob.kind, days: ob.kind === 'weekly' ? [...ob.days] : [], date:null, created:tk, archived:null}));
+    S.name = ob.name.trim(); S.photoFreq = ob.pfreq; S.onboarded = true;
+    save(); $('#onb').hidden = true; ob = null;
+    sel = tk; weekStart = monday(today()); show('v-today');
+    toast(items.length ? '¡Listo, ' + S.name + '! Tienes ' + items.length + (items.length === 1 ? ' tarea' : ' tareas') : '¡Listo, ' + S.name + '! Agrega tareas con el botón +');
+  }
+  $('#onb-next').onclick = onbNext;
+  $('#onb-back').onclick = () => { if (ob.step > 0) { ob.step--; paintOnb(); } };
+
   // ---------- navegación ----------
   let current = 'v-today';
   function show(v){
@@ -727,6 +1149,7 @@
   function render(){
     if (current === 'v-today') renderToday();
     else if (current === 'v-hist') renderHist();
+    else if (current === 'v-photos') renderPhotos();
     else renderSet();
   }
 
@@ -744,6 +1167,8 @@
   });
 
   applyTheme(); save(); render();
+  loadPhotos().then(render);
+  if (!S.onboarded) startOnboarding();
   try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch(e){}
   if (!NATIVE && 'serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
