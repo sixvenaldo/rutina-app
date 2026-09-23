@@ -1,0 +1,99 @@
+name: Compilar APK y publicar web
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    name: APK de Android
+    runs-on: ubuntu-latest
+    env:
+      VERSION_CODE: ${{ github.run_number }}
+      VERSION_NAME: 1.0.${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Generar la web y sincronizar con Android
+        run: node build.js && npx cap sync android
+
+      - name: Preparar llave de firma
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/rutina.p12"
+            echo "KEYSTORE_FILE=$RUNNER_TEMP/rutina.p12" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Falta el secreto KEYSTORE_BASE64; el APK saldrá sin firmar."
+          fi
+
+      - name: Compilar APK
+        working-directory: android
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: rutina
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+          ls app/build/outputs/apk/release/
+          cp app/build/outputs/apk/release/app-release*.apk "$GITHUB_WORKSPACE/Rutina-v$VERSION_NAME.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Rutina-v${{ env.VERSION_NAME }}
+          path: Rutina-v*.apk
+
+      - name: Publicar en Releases
+        if: env.KEYSTORE_FILE != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION_NAME }}
+          name: Rutina v${{ env.VERSION_NAME }}
+          body: |
+            Descarga **Rutina-v${{ env.VERSION_NAME }}.apk** desde el celular e instálalo.
+            Si ya tienes Rutina instalada, se actualiza sin perder tus tareas.
+          files: Rutina-v*.apk
+          make_latest: true
+
+  web:
+    name: Versión web (GitHub Pages)
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node build.js
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: www
+      - id: deploy
+        uses: actions/deploy-pages@v4

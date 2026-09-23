@@ -1,0 +1,15 @@
+{
+  "appId": "app.rutina.checklist",
+  "appName": "Rutina",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#050506"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover",
+      "style": "DARK"
+    }
+  }
+}
