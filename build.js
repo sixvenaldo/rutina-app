@@ -1,5 +1,5 @@
-// Genera index.html, manifest, service worker e íconos PNG (sin dependencias)
-const fs = require('fs'), zlib = require('zlib'), path = require('path');
+// Genera www/ (index.html, manifest, service worker, íconos) y los íconos/splash de Android
+const fs = require('fs'), path = require('path');
 const OUT = 'www';
 fs.mkdirSync(OUT, {recursive: true});
 const out = f => path.join(OUT, f);
@@ -31,12 +31,12 @@ fs.writeFileSync(out('manifest.webmanifest'), JSON.stringify({
   icons: [
     { src: 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
     { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-    { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+    { src: 'icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
   ]
 }, null, 2));
 
-fs.writeFileSync(out('sw.js'), `const CACHE = 'rutina-v1';
-const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
+fs.writeFileSync(out('sw.js'), `const CACHE = 'rutina-v2';
+const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL))); self.skipWaiting(); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k))))); self.clients.claim(); });
 self.addEventListener('fetch', e => {
@@ -46,44 +46,32 @@ self.addEventListener('fetch', e => {
 });
 `);
 
-// --- ícono: fondo negro, palomita ámbar (w×h, glifo centrado) ---
-function png(w, h = w, { transparent = false, glyph = 1 } = {}) {
-  const px = Buffer.alloc(w * h * 4);
-  const bg = [5, 5, 6], ac = [245, 185, 66];
-  const s = Math.min(w, h) * glyph, ox = (w - s) / 2, oy = (h - s) / 2;
-  const pts = [[0.31, 0.52], [0.44, 0.65], [0.70, 0.37]].map(([x, y]) => [ox + x * s, oy + y * s]);
-  const lw = s * 0.045, ringR = s * 0.30, ringW = s * 0.018, cx = w / 2, cy = h / 2;
-  const segDist = (px_, py, [ax, ay], [bx, by]) => {
-    const dx = bx - ax, dy = by - ay, t = Math.max(0, Math.min(1, ((px_ - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)));
-    return Math.hypot(px_ - ax - t * dx, py - ay - t * dy);
-  };
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-    const fx = x + .5, fy = y + .5;
-    const d = Math.min(segDist(fx, fy, pts[0], pts[1]), segDist(fx, fy, pts[1], pts[2]));
-    const a = Math.max(Math.max(0, Math.min(1, lw - d + .5)),
-                       Math.max(0, Math.min(1, ringW - Math.abs(Math.hypot(fx - cx, fy - cy) - ringR) + .5)) * 0.35);
-    const i = (y * w + x) * 4;
-    if (transparent) { for (let c = 0; c < 3; c++) px[i + c] = ac[c]; px[i + 3] = Math.round(a * 255); }
-    else { for (let c = 0; c < 3; c++) px[i + c] = Math.round(bg[c] * (1 - a) + ac[c] * a); px[i + 3] = 255; }
-  }
-  const raw = Buffer.alloc(h * (w * 4 + 1));
-  for (let y = 0; y < h; y++) px.copy(raw, y * (w * 4 + 1) + 1, y * w * 4, (y + 1) * w * 4);
-  const crcT = Array.from({ length: 256 }, (_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; });
-  const crc = b => { let c = 0xffffffff; for (const x of b) c = crcT[(c ^ x) & 255] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
-  const chunk = (type, data) => { const l = Buffer.alloc(4); l.writeUInt32BE(data.length); const td = Buffer.concat([Buffer.from(type), data]); const c = Buffer.alloc(4); c.writeUInt32BE(crc(td)); return Buffer.concat([l, td, c]); };
-  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = 6;
-  return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(raw)), chunk('IEND', Buffer.alloc(0))]);
+// --- íconos: se dibujan desde logo.js (SVG) con resvg ---
+const { Resvg } = require('@resvg/resvg-js');
+const { logoSVG } = require('./logo');
+const render = (svg, w) => new Resvg(svg, { fitTo: { mode: 'width', value: w } }).render().asPng();
+const icon = (size, opts) => render(logoSVG(opts), size);
+const FG_SCALE = 0.8; // símbolo dentro de la zona segura del ícono adaptativo
+function splash(w, h) {
+  const s = Math.round(Math.min(w, h) * 0.5);
+  const inner = logoSVG({ background: false }).replace(/<svg[^>]*>/, '').replace('</svg>', '');
+  return render(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+    <rect width="${w}" height="${h}" fill="#050506"/>
+    <svg x="${(w - s) / 2}" y="${(h - s) / 2}" width="${s}" height="${s}" viewBox="0 0 1024 1024">${inner}</svg></svg>`, w);
 }
-fs.writeFileSync(out('icon-192.png'), png(192));
-fs.writeFileSync(out('icon-512.png'), png(512));
+fs.writeFileSync(out('icon-192.png'), icon(192));
+fs.writeFileSync(out('icon-512.png'), icon(512));
+fs.writeFileSync(out('icon-maskable-512.png'), icon(512, { scale: FG_SCALE }));
 const RES = 'android/app/src/main/res';
 if (fs.existsSync(RES)) {
   const dens = { mdpi: 1, hdpi: 1.5, xhdpi: 2, xxhdpi: 3, xxxhdpi: 4 };
   for (const [d, k] of Object.entries(dens)) {
     const dir = path.join(RES, 'mipmap-' + d);
-    fs.writeFileSync(path.join(dir, 'ic_launcher.png'), png(48 * k));
-    fs.writeFileSync(path.join(dir, 'ic_launcher_round.png'), png(48 * k));
-    fs.writeFileSync(path.join(dir, 'ic_launcher_foreground.png'), png(108 * k, 108 * k, { transparent: true }));
+    fs.writeFileSync(path.join(dir, 'ic_launcher.png'), icon(48 * k));
+    fs.writeFileSync(path.join(dir, 'ic_launcher_round.png'), icon(48 * k));
+    fs.writeFileSync(path.join(dir, 'ic_launcher_foreground.png'), icon(108 * k, { background: false, scale: FG_SCALE }));
+    fs.writeFileSync(path.join(dir, 'ic_launcher_bg.png'), icon(108 * k, { symbol: false }));
+    fs.writeFileSync(path.join(dir, 'ic_launcher_monochrome.png'), icon(108 * k, { background: false, mono: true, scale: FG_SCALE }));
   }
   fs.writeFileSync(path.join(RES, 'values/ic_launcher_background.xml'),
     `<?xml version="1.0" encoding="utf-8"?>
@@ -95,7 +83,7 @@ if (fs.existsSync(RES)) {
     const f = path.join(RES, dir, 'splash.png');
     if (!fs.existsSync(f)) continue;
     const head = fs.readFileSync(f);
-    fs.writeFileSync(f, png(head.readUInt32BE(16), head.readUInt32BE(20), { glyph: 0.35 }));
+    fs.writeFileSync(f, splash(head.readUInt32BE(16), head.readUInt32BE(20)));
   }
   console.log('Íconos y splash de Android actualizados');
 }

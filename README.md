@@ -1,3 +1,5 @@
+<img src="logo.svg" width="96" alt="">
+
 # Rutina
 
 Checklist diario para Android: tareas diarias, de ciertos días de la semana o de una fecha, con historial de lo que hiciste y lo que no. Fondo negro por defecto y colores ajustables.
@@ -14,6 +16,7 @@ Tus tareas se guardan solo en el teléfono. Usa **Ajustes → Exportar** para ha
 | Archivo | Qué es |
 | --- | --- |
 | `app.html` | Toda la app: interfaz, estilos y lógica |
+| `logo.js` | Logo en SVG (de ahí salen todos los íconos) |
 | `build.js` | Genera `www/` (index, manifest, service worker, íconos) y los íconos de Android |
 | `capacitor.config.json` | Configuración de Capacitor (empaqueta la web como app Android) |
 | `android/` | Proyecto Android generado por Capacitor |
